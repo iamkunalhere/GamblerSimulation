@@ -18,4 +18,18 @@ function winOrLoose() {
 		dayStakes=$(($dayStakes-1))
 	fi
 }
-winOrLoose
+
+while [[ $dayStakes -ge 50 && $dayStakes -le 150 ]]
+ do
+	winOrLoose
+	if [[ $dayStakes -eq 50 ]]
+	 then
+		echo "wins 50% of profit"
+		exit
+	elif [[ $dayStakes -eq 150 ]]
+	 then
+		echo "loses 50% of stakes"
+		exit
+	fi
+done
+
