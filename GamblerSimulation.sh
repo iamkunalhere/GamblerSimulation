@@ -4,8 +4,6 @@
 #Author : Kunal Jadhav
 #Date : 7 March 2020
 
-wCountInDay=0
-lCountInDay=0
 function winOrLoose() {
 	state=$((RANDOM%2))
 	if  [[ $state -eq 1 ]]
@@ -17,17 +15,7 @@ function winOrLoose() {
 		((lCountInDay++))
 	fi
 }
-dayStakes=100
-bet=1
-totalStakes=0
-days=1
-monthDays=20
-wonDays=0
-lostDays=0
-maxWinCount=0
-maxLostCount=0
-maxWinDay=0
-maxLostDay=0
+function GambleMonth() {
 while [[ $days -le $monthDays ]]
 do
 	while [[ $dayStakes -ge 50 && $dayStakes -le 150 ]]
@@ -59,6 +47,7 @@ do
 	wCountInDay=0
 	lCountInDay=0
 done
+
 echo "wining days $wonDays"
 echo "lost days $lostDays"
 echo "Total stakes remaining to Gambler $totalStakes"
@@ -78,3 +67,30 @@ if [[ $totalStakes -gt 2000 ]]
 fi
 echo "luckiest Day is $maxWinDay"
 echo "unluckiest Day is $maxLostDay"
+}
+x=0
+while [[ $x -eq 0 ]]
+ do
+	wCountInDay=0
+	lCountInDay=0
+	dayStakes=100
+	bet=1
+	totalStakes=0
+	days=1
+	monthDays=20
+	wonDays=0
+	lostDays=0
+	maxWinCount=0
+	maxLostCount=0
+	maxWinDay=0
+	maxLostDay=0
+	totalStakes=0
+	GambleMonth
+	read -p "Would u like to play for a month y/n ?" choice
+	if [[ $choice == y ]]
+	 then
+		x=0
+	else
+		x=1
+	fi
+done
