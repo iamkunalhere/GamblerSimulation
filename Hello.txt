@@ -1,0 +1,1 @@
+This problem simulates a Gambler. Being a calculative Gambler exits if the stakes reaches a high or a low limit.
