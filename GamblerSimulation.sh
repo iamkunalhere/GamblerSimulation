@@ -19,20 +19,23 @@ dayStakes=100
 bet=1
 totalStakes=0
 days=1
+monthDays=20
+wonDays=0
+lostDays=0
 
-while [[ $days -lt 21 ]]
+while [[ $days -le $monthDays ]]
 do
 	while [[ $dayStakes -ge 50 && $dayStakes -le 150 ]]
  	 do
 		winOrLoose
-		if [[ $dayStakes -eq 50 ]]
+		if [[ $dayStakes -eq 150 ]]
 	 	 then
-			echo "wins 50% of stakes"
+			((wonDays++))
 			totalStakes=$(($totalStakes+$dayStakes))
 			break
-		elif [[ $dayStakes -eq 150 ]]
+		elif [[ $dayStakes -eq 50 ]]
 	 	 then
-			echo "loses 50% of stakes"
+			((lostDays++))
 			totalStakes=$(($totalStakes+$dayStakes))
 			break
 		fi
@@ -40,5 +43,21 @@ do
 	dayStakes=100
 	((days++))
 done
+echo "wining days $wonDays"
+echo "lost days $lostDays"
+echo "Total stakes remaining to Gambler $totalStakes"
 
-echo $totalStakes
+wonBy=0
+lostBy=0
+if [[ $totalStakes -gt 2000 ]]
+ then
+	wonBy=$(($totalStakes-2000))
+	echo "This month Gambler won by $wonBy stakes"
+ elif [[ $totalStakes -lt 2000 ]]
+ then
+	lostBy=$((2000-$totalStakes))
+	echo "This month Gambler lost by $lostBy stakes"
+ elif [[ $totalStakes -eq 2000 ]]
+ then
+	echo "Gambler not won or loss any stakes"
+fi
