@@ -5,10 +5,6 @@
 #Author : Kunal Jadhav
 #Date : 7 March 2020
 
-dayStakes=100
-bet=1
-days=0
-
 function winOrLoose() {
 	state=$((RANDOM%2))
 	if  [[ $state -eq 1 ]]
@@ -19,17 +15,30 @@ function winOrLoose() {
 	fi
 }
 
-while [[ $dayStakes -ge 50 && $dayStakes -le 150 ]]
- do
-	winOrLoose
-	if [[ $dayStakes -eq 50 ]]
-	 then
-		echo "wins 50% of profit"
-		exit
-	elif [[ $dayStakes -eq 150 ]]
-	 then
-		echo "loses 50% of stakes"
-		exit
-	fi
+dayStakes=100
+bet=1
+totalStakes=0
+days=1
+
+while [[ $days -lt 21 ]]
+do
+	while [[ $dayStakes -ge 50 && $dayStakes -le 150 ]]
+ 	 do
+		winOrLoose
+		if [[ $dayStakes -eq 50 ]]
+	 	 then
+			echo "wins 50% of stakes"
+			totalStakes=$(($totalStakes+$dayStakes))
+			break
+		elif [[ $dayStakes -eq 150 ]]
+	 	 then
+			echo "loses 50% of stakes"
+			totalStakes=$(($totalStakes+$dayStakes))
+			break
+		fi
+	done
+	dayStakes=100
+	((days++))
 done
 
+echo $totalStakes
